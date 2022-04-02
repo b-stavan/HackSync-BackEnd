@@ -1,4 +1,6 @@
 ﻿using HackSyncAPI.Contract;
+using HackSyncAPI.Model;
+using HackSyncAPI.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -40,7 +42,7 @@ namespace HackSyncAPI.Controllers
             return Ok("Registration Successfully");
         }
         [HttpPost("login")]
-        public async Task<ActionResult<OrganizationModel>> LoginOrganization(OrganizationModel organizationModel)
+        public async Task<ActionResult<OrganizationModel>> LoginOrganization(SignUpOrganizationVM organizationModel)
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +54,39 @@ namespace HackSyncAPI.Controllers
 
             }
             return NotFound("User Not Found");
+        }
+
+        [HttpGet("getallteammember/{orgid}")]
+        public async Task<ActionResult<List<UserModel>>> GetAllMember(int orgid)
+        {
+            var result = await organizationRepositories.GetAllTeamMember(orgid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Team Member are not exists");
+        }
+        [HttpGet("getallteamleader/{orgid}")]
+        public async Task<ActionResult<List<UserModel>>> GetAllLeader(int orgid)
+        {
+            var result = await organizationRepositories.GetAllTeamLeader(orgid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Team Leader are not exists");
+        }
+
+
+        [HttpGet("getallstack/{orgid}")]
+        public async Task<ActionResult<List<StackModel>>> GetAllStack(int orgid)
+        {
+            var result = await organizationRepositories.GetAllStack(orgid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Stack are not exists");
         }
     }
 }

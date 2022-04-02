@@ -43,6 +43,8 @@ namespace HackSyncAPI
             services.AddIdentity<UserModel, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IOrganizationRepositories), typeof(OrganizationRepositories));
+            services.AddScoped(typeof(ITeamLeaderRepositories), typeof(TeamLeaderRepositories));
+            services.AddScoped(typeof(ITeamMemberRepositories), typeof(TeamMemberRepositories));
 
         }
 

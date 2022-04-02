@@ -1,4 +1,5 @@
-﻿using HackSyncAPI.Model;
+﻿using HackSyncAPI.Configration.Entities;
+using HackSyncAPI.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,14 @@ namespace HackSyncAPI.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new RoleSeedConfiguration());
+            builder.ApplyConfiguration(new UserSeedConfiguration());
+            builder.ApplyConfiguration(new UserRoleSeedConfiguration());
         }
 
         public DbSet<OrganizationModel> Tbl_Organization_Master { get; set; }

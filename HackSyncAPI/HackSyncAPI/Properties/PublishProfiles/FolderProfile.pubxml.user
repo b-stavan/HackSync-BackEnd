@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\inetpub\wwwroot\hackSync</_PublishTargetUrl>
+    <History>True|2022-04-02T07:26:55.5919310Z;False|2022-04-02T12:55:34.8404505+05:30;False|2022-04-02T12:53:50.6007223+05:30;False|2022-04-02T12:53:25.2072401+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=172.16.0.5%3bDatabase=CodeFest22%3bTrusted_Connection=False%3bMultipleActiveResultSets=true%3bUser Id=codefest22%3bPassword=Simform%40123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="HackSyncAPI.Data.ApplicationContext">
+      <Value>Server=172.16.0.5%3bDatabase=CodeFest22%3bTrusted_Connection=False%3bMultipleActiveResultSets=true%3bUser Id=codefest22%3bPassword=Simform%40123</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

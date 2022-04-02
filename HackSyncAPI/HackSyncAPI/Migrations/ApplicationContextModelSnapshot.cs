@@ -154,6 +154,9 @@ namespace HackSyncAPI.Migrations
                     b.Property<DateTime>("Created_On")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Defination_Id")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -170,6 +173,8 @@ namespace HackSyncAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Defination_Id");
 
                     b.HasIndex("OrganizationId");
 
@@ -190,9 +195,6 @@ namespace HackSyncAPI.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Defination_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -204,6 +206,9 @@ namespace HackSyncAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLeader")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -250,8 +255,6 @@ namespace HackSyncAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Defination_Id");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -265,6 +268,52 @@ namespace HackSyncAPI.Migrations
                     b.HasIndex("StackId");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5b2546a3-3e7a-454e-ac18-52d4cae97b2f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "eaca6ef3-838b-4b79-b082-ccf1af895bad",
+                            Email = "jariwaladhruvin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Dhruvin",
+                            IsAvailable = true,
+                            IsLeader = false,
+                            LastName = "Jariwala",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JARIWALADHRUVIN@GMAIL.COM",
+                            NormalizedUserName = "DHRUVIN",
+                            OrganizationId = 5,
+                            PasswordHash = "AQAAAAEAACcQAAAAEItMSyy1BXsVbUDalcmLX3cxxz1gr/CZuRM2eBbJGpx8KBYjaYRCru8nGlfN2XaPTQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f8af9b59-cc8e-441c-80e3-dbe82f003844",
+                            StackId = 3,
+                            TwoFactorEnabled = false,
+                            UserName = "Dhruvin"
+                        },
+                        new
+                        {
+                            Id = "4b2546a3-3e7a-424e-ac18-52d4cae97b2f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "13647b1b-c439-4d83-98d1-654f677a277f",
+                            Email = "user@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "system",
+                            IsAvailable = true,
+                            IsLeader = false,
+                            LastName = "user",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@GMAIL.COM",
+                            NormalizedUserName = "SYSTEM",
+                            OrganizationId = 5,
+                            PasswordHash = "AQAAAAEAACcQAAAAEPoVDHqb1317lcFSUuvo4mwTV2A7jYGHmiexJaTkisy9JgBICF7qEiHdRofRAXmOcA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "52315fe9-8526-4c16-8667-2e156c84893a",
+                            StackId = 3,
+                            TwoFactorEnabled = false,
+                            UserName = "system"
+                        });
                 });
 
             modelBuilder.Entity("HackSyncAPI.OrganizationModel", b =>
@@ -355,6 +404,29 @@ namespace HackSyncAPI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "094afa8c-69e3-4103-a542-8aee12940f9a",
+                            ConcurrencyStamp = "e44c7592-3ec7-4782-b2e4-738785162359",
+                            Name = "Organization",
+                            NormalizedName = "ORGANIZATION"
+                        },
+                        new
+                        {
+                            Id = "9f074bba-372c-474e-81a2-92e877a73075",
+                            ConcurrencyStamp = "18705ccc-4764-4d29-ab3c-79339e8b8598",
+                            Name = "TeamMate",
+                            NormalizedName = "TEAMMATE"
+                        },
+                        new
+                        {
+                            Id = "24fee6f4-834d-4c45-a3e9-313a175b64b6",
+                            ConcurrencyStamp = "d63c3411-ea62-4ae0-8008-94136ca028c5",
+                            Name = "TeamLeader",
+                            NormalizedName = "TEAMLEADER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -440,6 +512,18 @@ namespace HackSyncAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "5b2546a3-3e7a-454e-ac18-52d4cae97b2f",
+                            RoleId = "24fee6f4-834d-4c45-a3e9-313a175b64b6"
+                        },
+                        new
+                        {
+                            UserId = "4b2546a3-3e7a-424e-ac18-52d4cae97b2f",
+                            RoleId = "9f074bba-372c-474e-81a2-92e877a73075"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -527,6 +611,10 @@ namespace HackSyncAPI.Migrations
 
             modelBuilder.Entity("HackSyncAPI.Model.TeamMasterModel", b =>
                 {
+                    b.HasOne("HackSyncAPI.Model.DefinationModel", "Defination")
+                        .WithMany()
+                        .HasForeignKey("Defination_Id");
+
                     b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
@@ -539,6 +627,8 @@ namespace HackSyncAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Defination");
+
                     b.Navigation("OrganizationModel");
 
                     b.Navigation("TeamLeader");
@@ -546,12 +636,6 @@ namespace HackSyncAPI.Migrations
 
             modelBuilder.Entity("HackSyncAPI.Model.UserModel", b =>
                 {
-                    b.HasOne("HackSyncAPI.Model.DefinationModel", "Defination")
-                        .WithMany()
-                        .HasForeignKey("Defination_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
@@ -563,8 +647,6 @@ namespace HackSyncAPI.Migrations
                         .HasForeignKey("StackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Defination");
 
                     b.Navigation("OrganizationModel");
 
