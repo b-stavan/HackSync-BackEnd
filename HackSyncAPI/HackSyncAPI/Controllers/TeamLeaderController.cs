@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HackSyncAPI.Contract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,11 @@ namespace HackSyncAPI.Controllers
     [ApiController]
     public class TeamLeaderController : ControllerBase
     {
+        private readonly ITeamLeaderRepositories teamLeaderRepositories;
+
+        public TeamLeaderController(ITeamLeaderRepositories teamLeaderRepositories)
+        {
+            this.teamLeaderRepositories = teamLeaderRepositories;
+        }
     }
 }
