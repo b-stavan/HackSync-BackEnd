@@ -18,5 +18,8 @@ namespace HackSyncAPI.Data
         public DbSet<OrganizationModel> Tbl_Organization_Master { get; set; }
         public DbSet<StackModel> Tbl_Stack_Master { get; set; }
         public DbSet<DefinationModel> Tbl_Defination_Master { get; set; }
+        public DbSet<TeamLeaderModel> Tbl_TeamLeaderModels { get; set; }
+        public DbSet<TeamMasterModel> Tbl_TeamMasterModels { get; set; }
+        public DbSet<MyTeamAllocationModel> Tbl_MyTeamAllocationModels { get; set; }
     }
 }

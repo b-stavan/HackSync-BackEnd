@@ -4,14 +4,16 @@ using HackSyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HackSyncAPI.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220402065008_Genrate_Tables")]
+    partial class Genrate_Tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,42 +50,6 @@ namespace HackSyncAPI.Migrations
                     b.ToTable("Tbl_Defination_Master");
                 });
 
-            modelBuilder.Entity("HackSyncAPI.Model.MyTeamAllocationModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created_On")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Updated_On")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("userId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("TeamId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Tbl_MyTeamAllocationModels");
-                });
-
             modelBuilder.Entity("HackSyncAPI.Model.StackModel", b =>
                 {
                     b.Property<int>("Id")
@@ -111,71 +77,6 @@ namespace HackSyncAPI.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Tbl_Stack_Master");
-                });
-
-            modelBuilder.Entity("HackSyncAPI.Model.TeamLeaderModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created_On")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Updated_On")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("userId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Tbl_TeamLeaderModels");
-                });
-
-            modelBuilder.Entity("HackSyncAPI.Model.TeamMasterModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created_On")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamLeader_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Team_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Updated_On")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("TeamLeader_Id");
-
-                    b.ToTable("Tbl_TeamMasterModels");
                 });
 
             modelBuilder.Entity("HackSyncAPI.Model.UserModel", b =>
@@ -472,31 +373,6 @@ namespace HackSyncAPI.Migrations
                     b.Navigation("OrganizationModel");
                 });
 
-            modelBuilder.Entity("HackSyncAPI.Model.MyTeamAllocationModel", b =>
-                {
-                    b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HackSyncAPI.Model.TeamMasterModel", "TeamMaster")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HackSyncAPI.Model.UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("OrganizationModel");
-
-                    b.Navigation("TeamMaster");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("HackSyncAPI.Model.StackModel", b =>
                 {
                     b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
@@ -506,42 +382,6 @@ namespace HackSyncAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("OrganizationModel");
-                });
-
-            modelBuilder.Entity("HackSyncAPI.Model.TeamLeaderModel", b =>
-                {
-                    b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HackSyncAPI.Model.UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("userId");
-
-                    b.Navigation("OrganizationModel");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HackSyncAPI.Model.TeamMasterModel", b =>
-                {
-                    b.HasOne("HackSyncAPI.OrganizationModel", "OrganizationModel")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HackSyncAPI.Model.TeamLeaderModel", "TeamLeader")
-                        .WithMany()
-                        .HasForeignKey("TeamLeader_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrganizationModel");
-
-                    b.Navigation("TeamLeader");
                 });
 
             modelBuilder.Entity("HackSyncAPI.Model.UserModel", b =>
