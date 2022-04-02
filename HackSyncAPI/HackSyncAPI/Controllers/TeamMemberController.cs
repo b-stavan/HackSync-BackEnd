@@ -1,7 +1,9 @@
 ﻿using HackSyncAPI.Contract;
 using HackSyncAPI.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +59,7 @@ namespace HackSyncAPI.Controllers
         [HttpPost("sendrequesttoadmin")]
         public async Task<ActionResult> sendrequesttoadmin(string uid, string teamname, string problemdefination, int orgId)
         {
-            var result = await teamMemberRepositories.SendRequestForTeamLeader(uid,teamname, problemdefination, orgId);
+            var result = await teamMemberRepositories.SendRequestForTeamLeader(uid, teamname, problemdefination, orgId);
 
             if (!result)
             {
@@ -66,6 +68,33 @@ namespace HackSyncAPI.Controllers
             }
             return Ok("Request Send to Admin...");
 
+        }
+
+        [HttpPut("edit/{id}")]
+        public async Task<ActionResult<IdentityResult>> EditProfile(string id, UserModel User)
+        {
+            //if (id != User.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+           //try
+            //{
+                var edited = await teamMemberRepositories.EditMember(id, User);
+                return Ok(edited);
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (await teamMemberRepositories.UserExist(User))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+            
         }
     }
 }

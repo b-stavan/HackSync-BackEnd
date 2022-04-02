@@ -3,6 +3,7 @@ using HackSyncAPI.Contstants;
 using HackSyncAPI.Data;
 using HackSyncAPI.Model;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,22 @@ namespace HackSyncAPI.Repositories
             this.context = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+        }
+
+        public async Task<IdentityResult> EditMember(string id, UserModel User)
+        {
+
+            //var alreadyUser =  userManager.FindByIdAsync(User.Id);
+            //if (alreadyUser != null)
+            //{
+
+                //var updatedMember = context.Entry(User).State = EntityState.Modified;
+                //await context.SaveChangesAsync();
+
+                return await userManager.UpdateAsync(User);
+            //}
+          
+
         }
 
         public async Task<SignInResult> LogTeamMate(UserModel model)
