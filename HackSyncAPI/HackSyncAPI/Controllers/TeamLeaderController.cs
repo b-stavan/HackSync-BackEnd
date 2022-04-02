@@ -1,4 +1,6 @@
 ﻿using HackSyncAPI.Contract;
+using HackSyncAPI.Model;
+using HackSyncAPI.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,6 +19,23 @@ namespace HackSyncAPI.Controllers
         public TeamLeaderController(ITeamLeaderRepositories teamLeaderRepositories)
         {
             this.teamLeaderRepositories = teamLeaderRepositories;
+        }
+
+
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserModel>> logintl(TeamLeaderSigninVM userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await teamLeaderRepositories.LoginTeamLeader(userModel);
+                if (result != null)
+                {
+                    return Ok("team leader login successfully...");
+                }
+            }
+
+            return BadRequest("User Not Found");
         }
     }
 }
