@@ -4,6 +4,7 @@ using HackSyncAPI.Data;
 using HackSyncAPI.Model;
 using HackSyncAPI.ViewModel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +42,10 @@ namespace HackSyncAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<UserModel> GetAvailableMember(int org_id)
+        public async Task<List<UserModel>> GetAvailableMember(int org_id)
         {
-            throw new NotImplementedException();
+                var result = await context.Users.Where(x => x.OrganizationId == org_id && x.IsLeader == false && x.IsAvailable==true).ToListAsync();
+                return result; 
         }
 
         public Task<UserModel> GetMyTeamMember(int Team_Id)
@@ -53,14 +55,40 @@ namespace HackSyncAPI.Repositories
 
  
 
-        public Task<bool> SendRequestToTeamMember(int TeamLeader_Id, string user_Id)
+        public async Task<bool> SendRequestToTeamMember(int TeamLeader_Id, string user_Id,int org_id)
         {
-            throw new NotImplementedException();
+            int Team_id = await context.Tbl_TeamMasterModels.Where(x => x.TeamLeader_Id == TeamLeader_Id).Select(x => x.Id).FirstOrDefaultAsync();
+            
+            var myTeamModel = new MyTeamAllocationModel()
+            {
+                TeamId = Team_id,
+                IsDeleted = false,
+                userId = user_Id,
+                OrganizationId = org_id,
+                status = false
+
+            };
+            context.Tbl_MyTeamAllocationModels.Add(myTeamModel);
+            var res=await context.SaveChangesAsync();
+            if(res!=null)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public Task<UserModel> SwitchToTeamMember(string User_Id)
+        public async Task<UserModel> SwitchToTeamMember(int TL_id)
         {
-            throw new NotImplementedException();
+            var user_id = context.Tbl_TeamLeaderModels.Where(x=> x.Id==TL_id).Select(x => x.userId).FirstOrDefault();
+            var user = await userManager.FindByIdAsync(user_id);
+            if (user != null)
+            {
+                await userManager.RemoveFromRoleAsync(user, Roles.TeamLeader);
+                await userManager.AddToRoleAsync(user, Roles.TeamMate);
+                await context.SaveChangesAsync();
+                return user;
+            }
+            return null;
         }
 
         public async Task<bool> UserExist(UserModel employee)

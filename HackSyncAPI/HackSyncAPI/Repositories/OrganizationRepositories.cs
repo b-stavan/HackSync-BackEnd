@@ -17,11 +17,13 @@ namespace HackSyncAPI.Repositories
     public class OrganizationRepositories : GenericRepository<OrganizationModel>, IOrganizationRepositories
     {
         private readonly ApplicationContext context;
+        private readonly UserManager<UserModel> userManager;
 
-        public OrganizationRepositories(ApplicationContext context ) : base(context)
+        public OrganizationRepositories(ApplicationContext context, UserManager<UserModel> userManager) : base(context)
         {
             this.context = context;
-          /*  UserManager = userManager;*/
+            this.userManager = userManager;
+            /*  UserManager = userManager;*/
         }
 
         public async Task<bool> ApproveRequest(int TL_id)
@@ -31,6 +33,9 @@ namespace HackSyncAPI.Repositories
             model.status = true;
             model.User.IsLeader = true;
             context.Tbl_TeamLeaderModels.Update(model);
+            var user = await userManager.FindByEmailAsync(model.User.Email);
+            await userManager.RemoveFromRoleAsync(user, Roles.TeamMate);
+            await userManager.AddToRoleAsync(user, Roles.TeamLeader);
             var res=await context.SaveChangesAsync();
             if (res != null)
             {
@@ -38,6 +43,22 @@ namespace HackSyncAPI.Repositories
             }
             return false;
 
+        }
+
+        public async Task<bool> CancelRequestForTeamLeader(int TL_id)
+        {
+            TeamLeaderModel model = context.Tbl_TeamLeaderModels.Where(x => x.Id == TL_id).Include(x => x.User).FirstOrDefault();
+            model.IsDeleted=true;
+            DefinationModel DefModel = context.Tbl_Defination_Master.Where(x => x.TeamLeader_Id == TL_id).FirstOrDefault();
+            DefModel.IsDeleted = true;
+            TeamMasterModel TeamModel = context.Tbl_TeamMasterModels.Where(x => x.TeamLeader_Id == TL_id).FirstOrDefault();
+            TeamModel.IsDeleted = true;
+            var res = await context.SaveChangesAsync();
+            if (res != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public async Task<List<TeamLeaderModel>> FetchAllRequest()

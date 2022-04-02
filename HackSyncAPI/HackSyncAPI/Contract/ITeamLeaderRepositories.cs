@@ -14,9 +14,9 @@ namespace HackSyncAPI.Contract
 
         Task<bool> UserExist(UserModel employee);
 
-        Task<UserModel> GetAvailableMember(int org_id);
-        Task<UserModel> SwitchToTeamMember(string User_Id);
-        Task<bool> SendRequestToTeamMember(int  TeamLeader_Id,string user_Id);
+        Task<List<UserModel>> GetAvailableMember(int org_id);
+        Task<UserModel> SwitchToTeamMember(int TL_id);
+        Task<bool> SendRequestToTeamMember(int  TeamLeader_Id,string user_Id, int org_id);
         Task<bool> ApproveTeamMemberRequest(int  TeamLeader_Id,string user_Id);
         Task<UserModel> GetMyTeamMember(int  Team_Id);
 

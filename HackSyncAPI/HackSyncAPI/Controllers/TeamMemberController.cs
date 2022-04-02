@@ -54,6 +54,7 @@ namespace HackSyncAPI.Controllers
             return Ok("Login Successfully");
 
         }
+
         [HttpPost("sendrequesttoadmin")]
         public async Task<ActionResult> sendrequesttoadmin(string uid, string teamname, string problemdefination, int orgId)
         {
@@ -66,6 +67,40 @@ namespace HackSyncAPI.Controllers
             }
             return Ok("Request Send to Admin...");
 
+        }
+
+        [HttpGet("FetchRequestForTeamMember")]
+        public async Task<ActionResult> FetchRequestForTeamMember(int orgId,string userId)
+        {
+            var result = await teamMemberRepositories.GetTeamMemberRequest(orgId,userId);
+            if (result.Count!=0)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+
+        }
+
+        [HttpPut("ApproveRequest")]
+        public async Task<ActionResult<bool>> ApproveRequest(int orgId, string userid)
+        {
+            var result = await teamMemberRepositories.ApproveRequestForJoinTeam(orgId,userid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+
+        [HttpPut("CancelRequest")]
+        public async Task<ActionResult<bool>> CancelRequest(int orgId, string userid)
+        {
+            var result = await teamMemberRepositories.CancelRequestForJoinTeam(orgId, userid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
         }
     }
 }
