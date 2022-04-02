@@ -111,13 +111,26 @@ namespace HackSyncAPI.Controllers
             return NotFound("Data Not Found");
         }
 
-        [HttpPut("ApproveRequest")]
+        [HttpPut("ApproveRequest/{Leader_Id}")]
         public async Task<ActionResult<MultipleVM>> ApproveRequest(int Leader_Id)
         {
             var result = await organizationRepositories.ApproveRequest(Leader_Id);
             if (result != null)
             {
                 return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+
+
+
+        [HttpPut("CancelRequest/{Leader_Id}")]
+        public async Task<ActionResult<MultipleVM>> CancelRequest(int Leader_Id)
+        {
+            var result = await organizationRepositories.CancelRequestForTeamLeader(Leader_Id);
+            if (result != null)
+            {
+                return Ok("You have rejected request");
             }
             return NotFound("Data Not Found");
         }

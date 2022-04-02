@@ -24,7 +24,7 @@ namespace HackSyncAPI.Controllers
 
 
         [HttpPost("Login")]
-        public async Task<ActionResult<UserModel>> logintl(TeamLeaderSigninVM userModel)
+        public async Task<ActionResult<UserModel>> Login_TeamLeader(TeamLeaderSigninVM userModel)
         {
             if (ModelState.IsValid)
             {
@@ -37,5 +37,37 @@ namespace HackSyncAPI.Controllers
 
             return BadRequest("User Not Found");
         }
+        [HttpGet("Availablemember/{org_id}")]
+        public async Task<ActionResult<List<UserModel>>> Availablemember(int org_id)
+        {
+            var result = await teamLeaderRepositories.GetAvailableMember(org_id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Available member not found");
+        }
+        [HttpPut("switchroletoTM/{TL_id}")]
+        public async Task<ActionResult<bool>> switchroletoTeamMate(int TL_id)
+        {
+            var result = await teamLeaderRepositories.SwitchToTeamMember(TL_id);
+            if (result != null)
+            {
+                return Ok("You successfully become the Team Member");
+            }
+            return Conflict("Error in changing the role...");
+        }
+
+            [HttpPost("SendRequestTeamMateToJoin")]
+            public async Task<ActionResult<bool>> SendRequestTeamMateToJoin(int TL_id, string userId, int org_id)
+            {
+                var result = await teamLeaderRepositories.SendRequestToTeamMember(TL_id, userId, org_id);
+                if (result != null)
+                {
+                    return Ok($"Request successfully send to {userId}");
+                }
+                return Conflict("Error in sending the request.");
+            }
+        }
     }
-}
+
