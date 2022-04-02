@@ -53,6 +53,57 @@ namespace HackSyncAPI.Repositories
             return result;
         }
 
+        public async Task<bool> SendRequestForTeamLeader(string uid, string teamname, string problemdefination, int orgId)
+        {
+            var TeamLeader = new TeamLeaderModel()
+            {
+                userId = uid,
+                OrganizationId = orgId,
+                status = false
+
+            };
+            await context.Tbl_TeamLeaderModels.AddAsync(TeamLeader);
+            await context.SaveChangesAsync();
+            int TeamLeaderid = context.Tbl_TeamLeaderModels.Where(x => x.userId == uid).Select(x => x.Id).FirstOrDefault();
+            var definationdata = new DefinationModel()
+            {
+                Defination_Name = problemdefination,
+                IsDeleted = false,
+                OrganizationId=orgId,
+                TeamLeader_Id=TeamLeaderid
+            };
+            await context.Tbl_Defination_Master.AddAsync(definationdata);
+            await context.SaveChangesAsync();
+           
+            int Defid = context.Tbl_Defination_Master.Where(x => x.TeamLeader_Id==TeamLeaderid).Select(x => x.Id).FirstOrDefault();
+            if (TeamLeaderid != 0)
+            {
+                var teamMaster = new TeamMasterModel()
+                {
+
+                    OrganizationId = orgId,
+                    Team_Name = teamname,
+                    TeamLeader_Id = TeamLeaderid,
+                    IsDeleted = true,
+                    Defination_Id=Defid
+                };
+                await context.Tbl_TeamMasterModels.AddAsync(teamMaster);
+                await context.SaveChangesAsync();
+               /* var myteam = new MyTeam_Allocation()
+                {
+
+                    userId = uid,
+                    OrganizationId = orgId,
+                    TeamId = TeamLeaderid,
+                    Status = false
+                };
+                await context.Tbl_Team_Allocation_Master.AddAsync(myteam);
+                await context.SaveChangesAsync();*/
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> UserExist(UserModel user)
         {
             var userExist = await userManager.FindByEmailAsync(user.Email);

@@ -11,7 +11,7 @@ namespace HackSyncAPI.Contract
     {
         Task<IdentityResult> RegisterTeamMate(UserModel model);
         Task<SignInResult> LogTeamMate(UserModel model);
-
         Task<bool> UserExist(UserModel employee);
+        Task<bool> SendRequestForTeamLeader(string uid, string teamname, string problemdefination, int orgId);
     }
 }
