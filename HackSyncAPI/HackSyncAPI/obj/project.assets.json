@@ -6245,19 +6245,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dhruvin\\.nuget\\packages\\": {}
+    "C:\\Users\\gaurav\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
+      "projectUniqueName": "C:\\Users\\gaurav\\Documents\\GitHub\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
       "projectName": "HackSyncAPI",
-      "projectPath": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
-      "packagesPath": "C:\\Users\\dhruvin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\obj\\",
+      "projectPath": "C:\\Users\\gaurav\\Documents\\GitHub\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
+      "packagesPath": "C:\\Users\\gaurav\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gaurav\\Documents\\GitHub\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dhruvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gaurav\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6338,7 +6338,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

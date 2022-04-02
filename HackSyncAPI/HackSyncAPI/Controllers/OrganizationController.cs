@@ -25,7 +25,7 @@ namespace HackSyncAPI.Controllers
             if (ModelState.IsValid)
             {
                 var res = await organizationRepositories.IsOrg_Exist(organizationModel.Organization_Email);
-
+                
 
                 if (res == true)
                 {
