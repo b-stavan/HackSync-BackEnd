@@ -15,5 +15,9 @@ namespace HackSyncAPI.Model
         [ForeignKey("OrganizationId")]
         public OrganizationModel OrganizationModel { get; set; }
         public int OrganizationId { get; set; }
+
+        [ForeignKey("Defination_Id")]
+        public DefinationModel Defination { get; set; }
+        public int? Defination_Id { get; set; }
     }
 }

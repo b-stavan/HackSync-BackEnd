@@ -19,9 +19,10 @@ namespace HackSyncAPI.Model
         public StackModel Stack { get; set; }
         public int StackId { get; set; }
 
-        [ForeignKey("Defination_Id")]
-        public DefinationModel Defination { get; set; }
-        public int Defination_Id { get; set; }
+        //[ForeignKey("Defination_Id")]
+        //public DefinationModel Defination { get; set; }
+        //public int? Defination_Id { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsLeader { get; set; }
    }
 }
