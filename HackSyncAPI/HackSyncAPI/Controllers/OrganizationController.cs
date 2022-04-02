@@ -88,5 +88,38 @@ namespace HackSyncAPI.Controllers
             }
             return NotFound("Stack are not exists");
         }
+
+        [HttpGet("getbyteamleadrequest/{TeamLeaderId}")]
+        public async Task<ActionResult<MultipleVM>> Getbyteamleadrequest(int TeamLeaderId)
+        {
+            var result = await organizationRepositories.GetUserDataDefinationStack(TeamLeaderId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+
+        [HttpGet("getpendingrequest")]
+        public async Task<ActionResult<MultipleVM>> getallpendingrequest()
+        {
+            var result = await organizationRepositories.FetchAllRequest();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+
+        [HttpPut("ApproveRequest")]
+        public async Task<ActionResult<MultipleVM>> ApproveRequest(int Leader_Id)
+        {
+            var result = await organizationRepositories.ApproveRequest(Leader_Id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
     }
 }

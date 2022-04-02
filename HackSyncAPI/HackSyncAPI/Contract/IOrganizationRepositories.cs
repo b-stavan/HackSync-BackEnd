@@ -18,5 +18,11 @@ namespace HackSyncAPI.Contract
         Task<List<UserModel>> GetAllTeamLeader(int orgid);
 
         Task<List<StackModel>> GetAllStack(int orgid);
+
+        Task<List<TeamLeaderModel>> FetchAllRequest();
+
+        Task<bool> ApproveRequest(int TL_id);
+
+        Task<MultipleVM> GetUserDataDefinationStack(int TeamLeaderId);
     }
 }

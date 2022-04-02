@@ -18,11 +18,32 @@ namespace HackSyncAPI.Repositories
     {
         private readonly ApplicationContext context;
 
-        public OrganizationRepositories(ApplicationContext context
-            ) : base(context)
+        public OrganizationRepositories(ApplicationContext context ) : base(context)
         {
             this.context = context;
           /*  UserManager = userManager;*/
+        }
+
+        public async Task<bool> ApproveRequest(int TL_id)
+        {
+
+            TeamLeaderModel model = context.Tbl_TeamLeaderModels.Where(x => x.Id == TL_id).Include(x=> x.User).FirstOrDefault();
+            model.status = true;
+            model.User.IsLeader = true;
+            context.Tbl_TeamLeaderModels.Update(model);
+            var res=await context.SaveChangesAsync();
+            if (res != null)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public async Task<List<TeamLeaderModel>> FetchAllRequest()
+        {
+            var result = await context.Tbl_TeamLeaderModels.Where(x => x.status == false && x.IsDeleted == false).Include(x=> x.User).ToListAsync();
+            return result;
         }
 
         public async Task<List<StackModel>> GetAllStack(int orgid)
@@ -52,6 +73,24 @@ namespace HackSyncAPI.Repositories
         {
             var teammember = await context.Users.Where(x=> x.OrganizationId==orgid && x.IsLeader==false).ToListAsync();
             return teammember;
+        }
+
+        public async Task<MultipleVM> GetUserDataDefinationStack(int TeamLeaderId)
+        {
+            var data = (from leader in context.Tbl_TeamLeaderModels.ToList()
+                        join
+ user in context.Users.ToList() on leader.userId equals user.Id
+                        join def in context.Tbl_Defination_Master.ToList() on leader.Id equals def.TeamLeader_Id
+                        join team in context.Tbl_TeamMasterModels.ToList() on leader.Id equals team.TeamLeader_Id
+                        join stack in context.Tbl_Stack_Master.ToList() on leader.User.StackId equals stack.Id
+                        select new MultipleVM()
+                        {
+                            User = user,
+                            DefinationModel = def,
+                            TeamLeaderModel = leader,
+                            StackModel = stack
+                        }).Where(x => x.TeamLeaderModel.Id == TeamLeaderId).FirstOrDefault();
+            return data;
         }
 
         /*   public UserManager<OrganizationModel> UserManager { get; }*/
