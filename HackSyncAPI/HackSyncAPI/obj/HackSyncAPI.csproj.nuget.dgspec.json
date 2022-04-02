@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj": {}
+    "C:\\Users\\krina\\Documents\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj": {
+    "C:\\Users\\krina\\Documents\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
+        "projectUniqueName": "C:\\Users\\krina\\Documents\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
         "projectName": "HackSyncAPI",
-        "projectPath": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
-        "packagesPath": "C:\\Users\\dhruvin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dhruvin\\Documents\\Codefest\\API\\HackSyncAPI\\HackSyncAPI\\obj\\",
+        "projectPath": "C:\\Users\\krina\\Documents\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\HackSyncAPI.csproj",
+        "packagesPath": "C:\\Users\\krina\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\krina\\Documents\\HackSync-BackEnd\\HackSyncAPI\\HackSyncAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dhruvin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\krina\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
