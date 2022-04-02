@@ -17,5 +17,7 @@ namespace HackSyncAPI.Model
         public string userId { get; set; }
         [ForeignKey("userId")]
         public UserModel User { get; set; }
+
+        public bool status { get; set; }
     }
 }

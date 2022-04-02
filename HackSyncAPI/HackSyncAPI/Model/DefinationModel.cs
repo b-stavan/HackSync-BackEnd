@@ -13,5 +13,9 @@ namespace HackSyncAPI.Model
         [ForeignKey("OrganizationId")]
         public OrganizationModel OrganizationModel { get; set; }
         public int OrganizationId { get; set; }
+
+        [ForeignKey("TeamLeader_Id")]
+        public TeamLeaderModel TeamLeader { get; set; }
+        public int TeamLeader_Id { get; set; }
     }
 }

@@ -54,5 +54,18 @@ namespace HackSyncAPI.Controllers
             return Ok("Login Successfully");
 
         }
+        [HttpPost("sendrequesttoadmin")]
+        public async Task<ActionResult> sendrequesttoadmin(string uid, string teamname, string problemdefination, int orgId)
+        {
+            var result = await teamMemberRepositories.SendRequestForTeamLeader(uid,teamname, problemdefination, orgId);
+
+            if (!result)
+            {
+                //return NotFound(HttpContext.Response.WriteAsync("User Not Found")) ;
+                return Conflict("Error in sending request...");
+            }
+            return Ok("Request Send to Admin...");
+
+        }
     }
 }

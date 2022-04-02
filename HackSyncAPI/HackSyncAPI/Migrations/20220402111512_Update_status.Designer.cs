@@ -4,14 +4,16 @@ using HackSyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HackSyncAPI.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220402111512_Update_status")]
+    partial class Update_status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,17 +40,12 @@ namespace HackSyncAPI.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamLeader_Id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Updated_On")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrganizationId");
-
-                    b.HasIndex("TeamLeader_Id");
 
                     b.ToTable("Tbl_Defination_Master");
                 });
@@ -285,7 +282,7 @@ namespace HackSyncAPI.Migrations
                         {
                             Id = "5b2546a3-3e7a-454e-ac18-52d4cae97b2f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8e77b77-49e0-455c-8625-2b0b386d8311",
+                            ConcurrencyStamp = "6184f2f3-d49d-4529-af2f-0c7d32f79131",
                             Email = "jariwaladhruvin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Dhruvin",
@@ -296,9 +293,9 @@ namespace HackSyncAPI.Migrations
                             NormalizedEmail = "JARIWALADHRUVIN@GMAIL.COM",
                             NormalizedUserName = "DHRUVIN",
                             OrganizationId = 5,
-                            PasswordHash = "AQAAAAEAACcQAAAAEBN2rPgUKUbvYvZGn5GOsC868vauZPUMxHUnEqF9GXrsDfJul30sYb0ZwQ0yNSwHcw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGZ/YkQKloDq2psUoHgu5ArkEvfW2Yz75SBegCfU5HXxsTOhvoj2Aa3eroHIXSBSqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1f513eb2-f985-4cff-b599-f37b016fffe7",
+                            SecurityStamp = "88825d44-4492-46d8-a2aa-d00878dc04e7",
                             StackId = 3,
                             TwoFactorEnabled = false,
                             UserName = "Dhruvin"
@@ -307,7 +304,7 @@ namespace HackSyncAPI.Migrations
                         {
                             Id = "4b2546a3-3e7a-424e-ac18-52d4cae97b2f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a0c41754-e36d-42be-b063-7b0e7f8a48c7",
+                            ConcurrencyStamp = "ec846784-2561-43bc-b940-6830b180c36e",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "system",
@@ -318,9 +315,9 @@ namespace HackSyncAPI.Migrations
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "SYSTEM",
                             OrganizationId = 5,
-                            PasswordHash = "AQAAAAEAACcQAAAAEItOet+B/wjN5Lm0U+Udwd3TzQO5cI46sOZKApOCq85CKS1tUB2h66Z/FfWyyHDfMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP49ZgQai9ndcWZ3EGxehQbv76eKDuJ+irFy/Yp1O7M8yujJ0Ij7TMIwSjy5kW6KMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c95b5a97-ea7a-431f-a3fe-ce1636323b91",
+                            SecurityStamp = "365188fc-05a8-420c-b9b6-28ac81e4d7fd",
                             StackId = 3,
                             TwoFactorEnabled = false,
                             UserName = "system"
@@ -420,21 +417,21 @@ namespace HackSyncAPI.Migrations
                         new
                         {
                             Id = "094afa8c-69e3-4103-a542-8aee12940f9a",
-                            ConcurrencyStamp = "e6e7f9c8-a0d6-4cd7-af3d-ac7027f7af1f",
+                            ConcurrencyStamp = "fda95185-806a-4add-a737-54569989bcd6",
                             Name = "Organization",
                             NormalizedName = "ORGANIZATION"
                         },
                         new
                         {
                             Id = "9f074bba-372c-474e-81a2-92e877a73075",
-                            ConcurrencyStamp = "800c563e-d24a-449e-b012-dbfee94a5356",
+                            ConcurrencyStamp = "cec09d84-8715-4939-8cd3-e38e8ef9ec88",
                             Name = "TeamMate",
                             NormalizedName = "TEAMMATE"
                         },
                         new
                         {
                             Id = "24fee6f4-834d-4c45-a3e9-313a175b64b6",
-                            ConcurrencyStamp = "1fed9dbe-a434-477e-b909-2caafbb98b8f",
+                            ConcurrencyStamp = "2022b189-cb71-46a7-9091-58ef9ea05d82",
                             Name = "TeamLeader",
                             NormalizedName = "TEAMLEADER"
                         });
@@ -564,15 +561,7 @@ namespace HackSyncAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HackSyncAPI.Model.TeamLeaderModel", "TeamLeader")
-                        .WithMany()
-                        .HasForeignKey("TeamLeader_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("OrganizationModel");
-
-                    b.Navigation("TeamLeader");
                 });
 
             modelBuilder.Entity("HackSyncAPI.Model.MyTeamAllocationModel", b =>
