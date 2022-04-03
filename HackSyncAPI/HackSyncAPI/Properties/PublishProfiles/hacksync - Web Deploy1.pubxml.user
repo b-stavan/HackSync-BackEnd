@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnBPBI3OCJkm4GYT+5I+P1AAAAAACAAAAAAAQZgAAAAEAACAAAAD+6X4qCVsMdubHxEyz5uhZti/71+MV1HSL9IqC0F3iSAAAAAAOgAAAAAIAACAAAACdqex9cKRF+NfHKP+j5LIdbcn+wtsUxydB8AJEMjCHpoAAAACrnpsxwWhIShbWQ4zsd8zhiSip3Jae2vVPQWvpOOo4OEPkazIG/w8U9MMISugb+qlS5SWJkEzS7AF994MRaJ0sQWGBk5qQMY5kwgKjeextzbYLdvNGpcAIJWG3Nlq9KyE+lxNwRqrdk2hPxD2rccqbgdyNQzH1rjQDcdG8xb6zCUAAAADu3gtgH7iXqHexpDyKKMPS/11MHA3wyUYdntrqIB0bAml5SC3XJvfNKeyRolcgrSFUeA/8K8SpFEvIgdztkHQk</EncryptedPassword>
+    <History>True|2022-04-03T10:38:40.3341483Z;True|2022-04-03T15:59:24.4233522+05:30;True|2022-04-03T12:49:42.0566629+05:30;True|2022-04-03T12:34:49.9497038+05:30;False|2022-04-03T12:15:51.2835071+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:hacksync.database.windows.net,1433%3bInitial Catalog=CodeFest22%3bPersist Security Info=False%3bUser ID=Dhruvin%3bPassword=Simform%40123%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

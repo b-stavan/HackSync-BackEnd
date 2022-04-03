@@ -24,7 +24,7 @@ namespace HackSyncAPI.Controllers
 
 
         [HttpPost("Login")]
-        public async Task<ActionResult<UserModel>> Login_TeamLeader(TeamLeaderSigninVM userModel)
+        public async Task<ActionResult<UserModel>> Login_TeamLeader([FromBody] TeamLeaderSigninVM userModel)
         {
             if (ModelState.IsValid)
             {
@@ -114,6 +114,16 @@ namespace HackSyncAPI.Controllers
             }
             return NotFound("Data Not Found");
 
+        }
+        [HttpGet("getmemberdatarequest/{uid}")]
+        public async Task<ActionResult<List<TeamMateDataWhileRequestVM>>> GetMemberDataRequest(string uid)
+        {
+            var result = await teamLeaderRepositories.TeamMateDataByid(uid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
         }
     }
     }

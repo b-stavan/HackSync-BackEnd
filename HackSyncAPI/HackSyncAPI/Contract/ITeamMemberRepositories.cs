@@ -18,6 +18,7 @@ namespace HackSyncAPI.Contract
         Task<bool> ApproveRequestForJoinTeam(int orgId,string userid);
         Task<bool> CancelRequestForJoinTeam(int orgId,string userid);
         Task<bool> SendRequestToTeamLeaderForJoinTeam(int TeamLeader_Id, string user_Id, int org_id);
+        Task<List<TeamMateDataWhileRequestVM>> TeamLeaderDataByid(string userid);
 
     }
 }

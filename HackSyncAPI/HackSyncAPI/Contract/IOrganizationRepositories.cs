@@ -10,6 +10,7 @@ namespace HackSyncAPI.Contract
     public interface IOrganizationRepositories : IGenericRepository<OrganizationModel>
     {
         Task<OrganizationModel> RegisterOrg(OrganizationModel model);
+        Task<OrganizationModel> EditOrg(int id,OrganizationModel model);
 
         Task<OrganizationModel> LoginOrg(SignUpOrganizationVM model);
         Task<bool> IsOrg_Exist(string email);
