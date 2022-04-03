@@ -1,5 +1,6 @@
 ﻿using HackSyncAPI.Contract;
 using HackSyncAPI.Model;
+using HackSyncAPI.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -70,7 +71,7 @@ namespace HackSyncAPI.Controllers
         }
 
         [HttpGet("FetchRequestForTeamMember")]
-        public async Task<ActionResult> FetchRequestForTeamMember(int orgId,string userId)
+        public async Task<ActionResult<List<CustomDataFetchModel>>> FetchRequestForTeamMember(int orgId,string userId)
         {
             var result = await teamMemberRepositories.GetTeamMemberRequest(orgId,userId);
             if (result.Count!=0)
@@ -101,6 +102,16 @@ namespace HackSyncAPI.Controllers
                 return Ok(result);
             }
             return NotFound("Data Not Found");
+        }
+        [HttpPost("SendRequestTeamMateToJoin")]
+        public async Task<ActionResult<bool>> SendRequestTeamMateToJoin(int TL_id, string userId, int org_id)
+        {
+            var result = await teamMemberRepositories.SendRequestToTeamLeaderForJoinTeam(TL_id, userId, org_id);
+            if (result != null)
+            {
+                return Ok($"Request successfully send to {TL_id}");
+            }
+            return Conflict("Error in sending the request.");
         }
     }
 }

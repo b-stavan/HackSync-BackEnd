@@ -68,6 +68,53 @@ namespace HackSyncAPI.Controllers
                 }
                 return Conflict("Error in sending the request.");
             }
+
+        [HttpGet("GetTeamMemberRequest")]
+        public async Task<ActionResult> GetTeamMemberRequest(int orgId)
+        {
+            var result = await teamLeaderRepositories.GetTeamMemberRequest(orgId);
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+
         }
+
+        [HttpPut("ApproveRequestForTeamMate")]
+        public async Task<ActionResult<bool>> ApproveRequestForTeamMate(string userid,int orgId)
+        {
+            var result = await teamLeaderRepositories.ApproveTeamMemberRequest(userid, orgId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+        [HttpPut("CancelRequest")]
+        public async Task<ActionResult<bool>> CancelRequest(int orgId, string userid)
+        {
+            var result = await teamLeaderRepositories.CancelTeamMemberRequest(orgId, userid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+        }
+
+
+
+        [HttpGet("GetMyTeam")]
+        public async Task<ActionResult> GetMyTeam(int orgId,int team_id)
+        {
+            var result = await teamLeaderRepositories.GetMyTeamMember(orgId,team_id);
+            if (result!=null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
+
+        }
+    }
     }
 

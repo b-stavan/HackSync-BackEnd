@@ -2,6 +2,7 @@
 using HackSyncAPI.Contstants;
 using HackSyncAPI.Data;
 using HackSyncAPI.Model;
+using HackSyncAPI.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,6 +31,10 @@ namespace HackSyncAPI.Repositories
             var res =await context.Tbl_MyTeamAllocationModels.Where(x => x.OrganizationId == orgId && x.userId == userid).FirstOrDefaultAsync();
             res.status =true;
             context.Tbl_MyTeamAllocationModels.Update(res);
+            await context.SaveChangesAsync();
+            var deletedata= context.Tbl_MyTeamAllocationModels.Where(x => x.status == false && x.userId == userid).ToList();
+            context.Tbl_MyTeamAllocationModels.RemoveRange(deletedata);
+         
             var user =  await userManager.FindByIdAsync(userid);
             user.IsAvailable = false;
             context.Users.Update(user);
@@ -56,11 +61,21 @@ namespace HackSyncAPI.Repositories
             return false;
         }
 
-        public async Task<List<MyTeamAllocationModel>> GetTeamMemberRequest(int orgId, string userId)
+        public async Task<List<CustomDataFetchModel>> GetTeamMemberRequest(int orgId, string userId)
         {
-           // List<UserModel> userModels =await context.Users.Where(x => x.OrganizationId == orgId).ToListAsync();
-            var res = await context.Tbl_MyTeamAllocationModels.Where(x => x.status == false && x.IsDeleted == false && x.OrganizationId==orgId && x.userId==userId).Include(x => x.User).ToListAsync();
-            return res;
+            var result = (from mt in context.Tbl_MyTeamAllocationModels.Where(x => x.userId == userId && x.OrganizationId==orgId && x.IsDeleted==false && x.status==false).ToList()
+                          join tm in context.Tbl_TeamMasterModels.ToList() on mt.TeamId equals tm.Id
+                          join tl in context.Tbl_TeamLeaderModels.ToList() on tm.TeamLeader_Id equals tl.Id
+                          join user in context.Users.ToList() on tl.userId equals user.Id
+                          select new CustomDataFetchModel
+                          {
+                              Leader_id=tl.Id,
+                              Leader_Name=user.UserName,
+                              User_id=user.Id
+                          }).ToList();
+            return result;
+                          
+
         }
 
         public async Task<SignInResult> LogTeamMate(UserModel model)
@@ -143,9 +158,26 @@ namespace HackSyncAPI.Repositories
             return false;
         }
 
-        public Task<bool> SendRequestToTeamLeaderForJoinTeam(int TeamLeader_Id, string user_Id, int org_id)
+        public async Task<bool> SendRequestToTeamLeaderForJoinTeam(int TeamLeader_Id, string user_Id, int org_id)
         {
-            throw new NotImplementedException();
+            int Team_id = await context.Tbl_TeamMasterModels.Where(x => x.TeamLeader_Id == TeamLeader_Id).Select(x => x.Id).FirstOrDefaultAsync();
+
+            var myTeamModel = new MyTeamAllocationModel()
+            {
+                TeamId = Team_id,
+                IsDeleted = false,
+                userId = user_Id,
+                OrganizationId = org_id,
+                status = false
+
+            };
+            context.Tbl_MyTeamAllocationModels.Add(myTeamModel);
+            var res = await context.SaveChangesAsync();
+            if (res != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> UserExist(UserModel user)

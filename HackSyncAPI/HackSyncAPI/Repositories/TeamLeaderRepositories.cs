@@ -37,10 +37,7 @@ namespace HackSyncAPI.Repositories
             return null;
         }
 
-        public Task<bool> ApproveTeamMemberRequest(int TeamLeader_Id, string user_Id)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public async Task<List<UserModel>> GetAvailableMember(int org_id)
         {
@@ -48,10 +45,6 @@ namespace HackSyncAPI.Repositories
                 return result; 
         }
 
-        public Task<UserModel> GetMyTeamMember(int Team_Id)
-        {
-            throw new NotImplementedException();
-        }
 
  
 
@@ -101,6 +94,71 @@ namespace HackSyncAPI.Repositories
             }
 
             return false;
+        }
+
+        public async Task<List<MyTeamAllocationModel>> GetTeamMemberRequest(int orgId)
+        {
+            var res =await context.Tbl_MyTeamAllocationModels.Where(x=>x.OrganizationId == orgId&&x.status==false && x.IsDeleted==false).Include(x => x.User).ToListAsync();
+            return res;
+        }
+
+        public async Task<bool> CancelTeamMemberRequest(string user_Id, int orgId)
+        {
+            var res = await context.Tbl_MyTeamAllocationModels.Where(x => x.OrganizationId == orgId && x.userId == user_Id).FirstOrDefaultAsync();
+            res.IsDeleted = true;
+            context.Tbl_MyTeamAllocationModels.Update(res);
+            var result = context.SaveChanges();
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ApproveTeamMemberRequest(string user_Id, int orgId)
+        {
+            var res = await context.Tbl_MyTeamAllocationModels.Where(x => x.OrganizationId == orgId && x.userId == user_Id).FirstOrDefaultAsync();
+            res.status = true;
+            context.Tbl_MyTeamAllocationModels.Update(res);
+            var user = await userManager.FindByIdAsync(user_Id);
+            user.IsAvailable = false;
+            context.Users.Update(user);
+            var result = await context.SaveChangesAsync();
+
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> CancelTeamMemberRequest(int orgId, string user_Id)
+        {
+            var res = await context.Tbl_MyTeamAllocationModels.Where(x => x.OrganizationId == orgId && x.userId == user_Id).FirstOrDefaultAsync();
+            res.IsDeleted = true;
+            context.Tbl_MyTeamAllocationModels.Update(res);
+            var result = context.SaveChanges();
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<List<MyTeamMemberVM>> GetMyTeamMember(int Org_Id, int Team_Id)
+        {
+            var result = await context.Tbl_MyTeamAllocationModels.Where(x => x.TeamId == Team_Id && x.status == true && x.IsDeleted == false && x.OrganizationId == Org_Id).Join(context.Users, team => team.userId, user => user.Id, (team, user) => new {
+                user,
+                team
+            }).Join(context.Tbl_Stack_Master, users => users.user.StackId, stack => stack.Id, (users, stack) => new MyTeamMemberVM
+            {
+                usermodel = users.user,
+                teammodel = users.team,
+                StackModel = stack
+
+            }).ToListAsync();
+
+            return result;
         }
     }
 }
