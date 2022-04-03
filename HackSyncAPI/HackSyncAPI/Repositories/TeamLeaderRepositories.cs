@@ -160,5 +160,24 @@ namespace HackSyncAPI.Repositories
 
             return result;
         }
+
+        public async Task<List<TeamMateDataWhileRequestVM>> TeamMateDataByid(string userid)
+        {
+            var result = (from def in context.Tbl_Defination_Master.ToList() 
+                          join tl in context.Tbl_TeamLeaderModels.ToList() on 
+                          def.TeamLeader_Id equals tl.Id
+                          join user in context.Users.Where(x=> x.Id==userid).ToList() on
+                          tl.userId equals user.Id
+                          join stack in context.Tbl_Stack_Master.ToList() on
+                          user.StackId equals stack.Id
+                          select new TeamMateDataWhileRequestVM
+                          {
+                              User_id=user.Id,
+                              User_Name=user.UserName,
+                              Stack_Name=stack.Stack_Name,
+                              Problem_Defination=def.Defination_Name
+                          }).ToList();
+            return result;
+        }
     }
 }

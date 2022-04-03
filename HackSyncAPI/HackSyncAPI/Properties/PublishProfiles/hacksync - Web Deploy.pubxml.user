@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnBPBI3OCJkm4GYT+5I+P1AAAAAACAAAAAAAQZgAAAAEAACAAAAAxx2uj/JS4sVF4G1z/vhxGG/WGhtJBXwlNBrafRD6DUgAAAAAOgAAAAAIAACAAAADJ8KxOCgxglBV4eiE74Hym70y0cctR4/4VRkVjgxtacIAAAAAnbI+A1jnazpu6vGXpR4hABQDDqzn5s8jdfAGZkgt013ErE7YmhREx+zg/xFm4E45C+RLKAxzCKo80c+ylKY7foz0/zlHEp+9Q2OblAvLwPmilhWVTlT3o6OGwfK/MetNzY6e/NgLWMyf2U2LquwPpcPTzelrzizMOgnMWtJG7PUAAAADGBrtlOhYfc+ZNdsKXfwvcJZz2eZ1VmVpVAW9A2hdpmm/sMhhHToMTcgC3lWR9W8xyljR2hFxySzcdRqm4MRwH</EncryptedPassword>
+    <History>False|2022-04-03T06:30:32.6178113Z;False|2022-04-03T11:59:18.7981689+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=172.16.0.5%3bDatabase=CodeFest22%3bTrusted_Connection=False%3bMultipleActiveResultSets=true%3bUser Id=codefest22%3bPassword=Simform%40123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="HackSyncAPI.Data.ApplicationContext">
+      <Value>Server=172.16.0.5%3bDatabase=CodeFest22%3bTrusted_Connection=False%3bMultipleActiveResultSets=true%3bUser Id=codefest22%3bPassword=Simform%40123</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

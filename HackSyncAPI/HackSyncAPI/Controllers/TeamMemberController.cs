@@ -22,7 +22,7 @@ namespace HackSyncAPI.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<ActionResult<UserModel>> RegisterTeamMember(UserModel userModel)
+        public async Task<ActionResult<UserModel>> RegisterTeamMember([FromBody] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace HackSyncAPI.Controllers
         }
 
         [HttpPost("SignIn")]
-        public async Task<ActionResult> SignInTeamMate(UserModel model)
+        public async Task<ActionResult> SignInTeamMate([FromBody] UserModel model)
         {
             var result = await teamMemberRepositories.LogTeamMate(model);
 
@@ -112,6 +112,16 @@ namespace HackSyncAPI.Controllers
                 return Ok($"Request successfully send to {TL_id}");
             }
             return Conflict("Error in sending the request.");
+        }
+        [HttpGet("getleaderdatarequest/{uid}")]
+        public async Task<ActionResult<List<TeamMateDataWhileRequestVM>>> GetLeaderDataRequest(string uid)
+        {
+            var result = await teamMemberRepositories.TeamLeaderDataByid(uid);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound("Data Not Found");
         }
     }
 }

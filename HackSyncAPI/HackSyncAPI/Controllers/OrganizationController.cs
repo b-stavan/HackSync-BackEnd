@@ -21,8 +21,15 @@ namespace HackSyncAPI.Controllers
             this.organizationRepositories = organizationRepositories;
         }
 
+
+        [HttpGet("test")]
+        public async Task<ActionResult<bool>> test()
+        {
+            return true;
+        }
+
         [HttpPost("signup")]
-        public async Task<ActionResult<OrganizationModel>> RegisterOrg(OrganizationModel organizationModel)
+        public async Task<ActionResult<OrganizationModel>> RegisterOrg([FromBody]OrganizationModel organizationModel)
         {
             if (ModelState.IsValid)
             {
@@ -42,7 +49,7 @@ namespace HackSyncAPI.Controllers
             return Ok("Registration Successfully");
         }
         [HttpPost("login")]
-        public async Task<ActionResult<OrganizationModel>> LoginOrganization(SignUpOrganizationVM organizationModel)
+        public async Task<ActionResult<OrganizationModel>> LoginOrganization([FromBody]SignUpOrganizationVM organizationModel)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +82,23 @@ namespace HackSyncAPI.Controllers
                 return Ok(result);
             }
             return NotFound("Team Leader are not exists");
+        }
+        [HttpPut("Editorg/{id}")]
+        public async Task<ActionResult<OrganizationModel>> Editorganization(int id,[FromBody]OrganizationModel organizationModel)
+        {
+
+            if (id != null)
+            {
+
+
+                await organizationRepositories.EditOrg(id, organizationModel);
+                return Ok("Edit Successfully");
+            }
+                
+
+
+            return BadRequest("Organization does not exist");
+            
         }
 
 

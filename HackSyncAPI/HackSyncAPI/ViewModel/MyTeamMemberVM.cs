@@ -11,5 +11,6 @@ namespace HackSyncAPI.ViewModel
         public UserModel usermodel { get; set; }
         public MyTeamAllocationModel teammodel { get; set; }
         public StackModel StackModel { get; set; }
+       
     }
 }

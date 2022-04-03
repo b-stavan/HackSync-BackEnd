@@ -21,6 +21,7 @@ namespace HackSyncAPI.Contract
         Task<bool> CancelTeamMemberRequest(int orgId, string user_Id);
         Task<List<MyTeamMemberVM>> GetMyTeamMember(int Org_Id, int Team_Id);
         Task<List<MyTeamAllocationModel>> GetTeamMemberRequest(int orgId);
+        Task<List<TeamMateDataWhileRequestVM>> TeamMateDataByid(string userid);
 
     }
 }

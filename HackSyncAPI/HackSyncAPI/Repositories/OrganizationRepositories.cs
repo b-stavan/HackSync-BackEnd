@@ -61,6 +61,23 @@ namespace HackSyncAPI.Repositories
             return false;
         }
 
+        public async Task<OrganizationModel> EditOrg(int id,OrganizationModel organizationModel)
+        {
+
+            if (id != null)
+            {
+                var org =await context.Tbl_Organization_Master.Where(x => x.Id == id).FirstOrDefaultAsync();
+                if (org != null)
+                {
+                    context.Tbl_Organization_Master.Update(organizationModel);
+                    await context.SaveChangesAsync();
+                    return org;
+                }
+                
+            }
+            return null;
+        }
+
         public async Task<List<TeamLeaderModel>> FetchAllRequest()
         {
             var result = await context.Tbl_TeamLeaderModels.Where(x => x.status == false && x.IsDeleted == false).Include(x=> x.User).ToListAsync();
@@ -136,6 +153,7 @@ namespace HackSyncAPI.Repositories
         public Task<OrganizationModel> RegisterOrg(OrganizationModel model)
         {
             model.Organization_Password = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(model.Organization_Password));
+            model.IsDeleted = false;
             //var organizationModel = new OrganizationModel()
             //{
             //    Organization_Name=model.Organization_Name,
